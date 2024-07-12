@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 // Pages
 import 'package:mapi/pages/libraryPage.dart';
 import 'package:mapi/pages/searchPage.dart';
@@ -49,10 +48,10 @@ class MAPI extends StatelessWidget {
           var routes = <String, WidgetBuilder>{
             LibraryPage.routeName:  (context) => LibraryPage(),
             SearchPage.routeName:   (context) => SearchPage(),
-            MangaPage.routeName:    (context) => MangaPage(settings.arguments),
-            ChapterPage.routeName:  (context) => ChapterPage(settings.arguments),
+            MangaPage.routeName:    (context) => MangaPage(settings.arguments as Manga),
+            ChapterPage.routeName:  (context) => ChapterPage(settings.arguments as ChapterArguments),
           };
-          WidgetBuilder builder = routes[settings.name];
+          WidgetBuilder builder = routes[settings.name] as WidgetBuilder;
           return MaterialPageRoute(builder: (context) => builder(context));
         },
 

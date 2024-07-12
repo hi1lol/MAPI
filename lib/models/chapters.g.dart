@@ -17,8 +17,8 @@ class ChaptersAdapter extends TypeAdapter<Chapters> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Chapters(
-      list: (fields[0] as List)?.cast<Chapter>(),
-      readChapters: (fields[1] as List)?.cast<Chapter>(),
+      list: (fields[0] as List).cast<Chapter>(),
+      readChapters: (fields[1] as List?)?.cast<Chapter>(),
     );
   }
 

@@ -11,7 +11,7 @@ import 'package:mapi/services/api.dart' as Api;
 
 class ChapterPage extends StatefulWidget {
   final ChapterArguments args;
-  ChapterPage(this.args, {Key key}) : super(key: key);
+  ChapterPage(this.args, { Key? key}) : super(key: key);
 
   static String routeName = '/chapter';
 
@@ -23,7 +23,7 @@ class ChapterPage extends StatefulWidget {
 class _ChapterPageState extends State<ChapterPage> {
   int length = 0;
   int currentPage = 1;
-  List<dynamic> pages;
+  List<dynamic>? pages;
   bool appBarVisible = true;
   bool chapterAndPageVisible = true;
   bool loading = true;
@@ -47,7 +47,7 @@ class _ChapterPageState extends State<ChapterPage> {
     if (page == 0 || page == length + 1) {
       if(page == length + 1) {
         // Set current chapter as read
-        Provider.of<MapiProvider>(context, listen: false).markAsRead(widget.args.mangaItem, widget.args.chapters, widget.args.chapter);
+        Provider.of<MapiProvider>(context, listen: false).markAsRead(widget.args.mangaItem, widget.args.chapters as List<Chapter>, widget.args.chapter);
       }
       setState(() {
         chapterAndPageVisible = false;
@@ -61,7 +61,7 @@ class _ChapterPageState extends State<ChapterPage> {
   }
 
   void _goToPreviousChapter () async {
-    List<Chapter> allChapters = widget.args.chapters;
+    List<Chapter> allChapters = widget.args.chapters as List<Chapter>;
     Chapter currentChapter = allChapters.firstWhere((elem) =>
       elem == widget.args.chapter
     );
@@ -241,7 +241,7 @@ class _ChapterPageState extends State<ChapterPage> {
           child: PhotoView(
             minScale: PhotoViewComputedScale.contained * 1,
             maxScale: PhotoViewComputedScale.contained * 2.5,
-            imageProvider: NetworkImage(pages[itemIndex-1]),
+            imageProvider: NetworkImage(pages![itemIndex-1]),
           )
         )
       );

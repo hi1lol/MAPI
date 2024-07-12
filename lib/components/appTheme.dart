@@ -16,12 +16,10 @@ ThemeData primaryTheme (String mode) {
     primary: const Color(0xffbb86fc),
     secondary: const Color(0xff03dac6),
     surface: darkSecondaryColor,
-    background: darkPrimaryColor,
     error: const Color(0xffcf6679),
     onPrimary: Colors.black,
     onSecondary: Colors.grey,
     onSurface: Colors.white,
-    onBackground: Colors.white,
     onError: Colors.black,
     brightness: Brightness.dark,
   );
@@ -40,7 +38,7 @@ ThemeData primaryTheme (String mode) {
 
     // Style for AppBar text
     primaryTextTheme: TextTheme(
-      headline6: TextStyle(
+      headlineSmall: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 16.0,
         letterSpacing: 1.0,
@@ -49,7 +47,7 @@ ThemeData primaryTheme (String mode) {
 
     // Style for Standard text
     textTheme: TextTheme(
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: primaryTextColor,
         fontSize: 13.0,
         height: 1.3

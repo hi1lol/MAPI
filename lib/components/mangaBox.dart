@@ -7,7 +7,7 @@ import 'package:mapi/pages/mangaPage.dart';
 // MangaBox Widget (Tile on the GridView)
 class MangaBox extends StatefulWidget {
   final Manga mangaItem;
-  MangaBox(this.mangaItem, {Key key}) : super(key: key);
+  MangaBox(this.mangaItem, { Key? key}) : super(key: key);
 
   @override
   _MangaBoxState createState() => _MangaBoxState();
@@ -39,11 +39,11 @@ class _MangaBoxState extends State<MangaBox> {
                 child: Image.network(
                   '${widget.mangaItem.cover}',
                   fit: BoxFit.cover,
-                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) return child;
                     return Center(
                       child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes : null,
+                        value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes as num) : null,
                       ),
                     );
                   },

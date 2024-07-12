@@ -17,7 +17,7 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Settings(
-      mangaListLastUpdated: fields[0] as DateTime,
+      mangaListLastUpdated: fields[0] as DateTime?,
     );
   }
 

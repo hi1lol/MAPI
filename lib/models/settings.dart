@@ -6,7 +6,7 @@ part 'settings.g.dart';
 class Settings {
 
   @HiveField(0)
-  DateTime mangaListLastUpdated;
+  DateTime? mangaListLastUpdated;
 
   Settings({
     this.mangaListLastUpdated

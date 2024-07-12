@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'chapter.dart';
 
@@ -11,10 +10,10 @@ class Chapters extends HiveObject {
   List<Chapter> list;
 
   @HiveField(1)
-  final List<Chapter> readChapters;
+  final List<Chapter>? readChapters;
 
   Chapters({
-    @required this.list,
+    required this.list,
     this.readChapters
   });
 }

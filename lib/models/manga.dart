@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 import 'chapter.dart';
@@ -27,16 +26,16 @@ class Manga extends HiveObject {
   bool isFavourite;
 
   @HiveField(6)
-  List<String> readChapters;
+  List<String>? readChapters;
 
   Manga({
-    @required this.title,
-    @required this.urlSafeTitle,
-    @required this.cover,
-    @required this.categories,
-    @required this.status,
-    this.isFavourite: false,
-    this.readChapters
+    required this.title,
+    required this.urlSafeTitle,
+    required this.cover,
+    required this.categories,
+    required this.status,
+    this.isFavourite = false,
+    required this.readChapters
   });
 
   void updateFromManga (Manga mangaToCopy) {

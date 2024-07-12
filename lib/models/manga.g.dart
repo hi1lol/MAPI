@@ -20,10 +20,10 @@ class MangaAdapter extends TypeAdapter<Manga> {
       title: fields[0] as String,
       urlSafeTitle: fields[1] as String,
       cover: fields[2] as String,
-      categories: (fields[3] as List)?.cast<dynamic>(),
+      categories: (fields[3] as List).cast<dynamic>(),
       status: fields[4] as String,
       isFavourite: fields[5] as bool,
-      readChapters: (fields[6] as List)?.cast<String>(),
+      readChapters: (fields[6] as List?)?.cast<String>(),
     );
   }
 

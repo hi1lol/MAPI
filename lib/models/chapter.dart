@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 part 'chapter.g.dart';
@@ -18,10 +17,10 @@ class Chapter {
   final String date;
 
   Chapter({
-    @required this.mangaUrlSafeTitle,
-    @required this.number,
-    @required this.type,
-    @required this.date
+    required this.mangaUrlSafeTitle,
+    required this.number,
+    required this.type,
+    required this.date
   });
 
   /// Unique identifier for this Chapter object

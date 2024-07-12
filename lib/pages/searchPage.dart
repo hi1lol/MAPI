@@ -8,7 +8,7 @@ import 'package:mapi/services/provider.dart';
 
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key key}) : super(key: key);
+  SearchPage({Key? key}) : super(key: key);
 
   static const String routeTitle = 'SEARCH';
   static const String routeName = '/search';
@@ -21,15 +21,15 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   List<Manga> mangaList = [];
   bool loading = false;
-  String searchQuery;
-  String nextPageUrl;
+  String? searchQuery;
+  String? nextPageUrl;
 
   ScrollController scrollController = new ScrollController();
   final searchController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   // Triggered on "Search" button pressed
-  void searchManga({String query}) async {
+  void searchManga({required String query}) async {
 
     // Remove focus from search input
     FocusScope.of(context).requestFocus(new FocusNode());
@@ -133,7 +133,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                             suffixIcon: IconButton(
                               onPressed: () => searchManga(query: searchController.text),
-                              icon: Icon(Icons.search, color: Theme.of(context).colorScheme.onBackground),
+                              icon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface),
                             ),
                           ),
                         )

@@ -16,7 +16,7 @@ enum MoreActions { markAsRead, markPreviousAsRead, markAsNotRead, markPreviousAs
 
 class MangaPage extends StatefulWidget {
   final Manga mangaItem;
-  MangaPage(this.mangaItem, {Key key}) : super(key: key);
+  MangaPage(this.mangaItem, { Key? key}) : super(key: key);
 
   static const String routeTitle = 'MANGA';
   static const String routeName = '/manga';
@@ -146,7 +146,7 @@ class _MangaPageState extends State<MangaPage> {
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
                           child: Container(
-                            color: Theme.of(context).colorScheme.background.withOpacity(0.75),
+                            color: Theme.of(context).colorScheme.surface.withOpacity(0.75),
                           ),
                         ),
                       ),
@@ -161,7 +161,7 @@ class _MangaPageState extends State<MangaPage> {
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(40),
                           ),
@@ -196,13 +196,13 @@ class _MangaPageState extends State<MangaPage> {
                                   child: Image.network(
                                     widget.mangaItem.cover,
                                     fit: BoxFit.cover,
-                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                                       if (loadingProgress == null)
                                         return child;
                                       return Center(
                                         child: CircularProgressIndicator(
                                           value: loadingProgress.expectedTotalBytes != null
-                                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                              ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes as num)
                                               : null,
                                         ),
                                       );
@@ -218,7 +218,7 @@ class _MangaPageState extends State<MangaPage> {
                           // Title
                           Text(
                             widget.mangaItem.title,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.headlineSmall,
                             textAlign: TextAlign.center
                           ),
 
@@ -246,7 +246,7 @@ class _MangaPageState extends State<MangaPage> {
                                 child: Container(
                                   padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.background,
+                                    color: Theme.of(context).colorScheme.surface,
                                     borderRadius: BorderRadius.all(Radius.circular(5)),
                                   ),
                                   child: Text(element, style: TextStyle(fontSize: 12))
@@ -293,7 +293,7 @@ class _MangaPageState extends State<MangaPage> {
                                     Text(
                                       '${chapters[index].type} ${chapters[index].number}',
                                       style: TextStyle(
-                                          color: isRead ? Theme.of(context).colorScheme.onSecondary : Theme.of(context).colorScheme.onBackground,
+                                          color: isRead ? Theme.of(context).colorScheme.onSecondary : Theme.of(context).colorScheme.onSurface,
                                           fontWeight: isRead ? FontWeight.normal : FontWeight.bold
                                       ),
                                     ),
@@ -303,7 +303,7 @@ class _MangaPageState extends State<MangaPage> {
                                     ),
                                     isFavourite ? PopupMenuButton<MoreActions>(
                                       padding: EdgeInsets.all(0),
-                                      icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.onBackground),
+                                      icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.onSurface),
                                       onSelected: (MoreActions choice) {
                                         _handleMoreAction(choice, chapters[index]);
                                       },
@@ -334,7 +334,7 @@ class _MangaPageState extends State<MangaPage> {
                       )
                     );
                   },
-                  childCount: chapters != null ? chapters.length : 0,
+                  childCount: chapters.isNotEmpty ? chapters.length : 0,
                 ),
               ),
 

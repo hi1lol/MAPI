@@ -9,7 +9,7 @@ import 'package:mapi/models/manga.dart';
 
 
 class LibraryPage extends StatefulWidget {
-  LibraryPage({Key key}) : super(key: key);
+  LibraryPage({ Key? key}) : super(key: key);
 
   static const String routeTitle = 'LIBRARY';
   static const String routeName = '/';

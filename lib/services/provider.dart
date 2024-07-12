@@ -50,14 +50,14 @@ class MapiProvider extends ChangeNotifier {
     // Set [Manga] as not favourite and update db
     mangaItem.isFavourite = false;
     if (mangaItem.readChapters != null) {
-      mangaItem.readChapters.clear();
+      mangaItem.readChapters!.clear();
     }
     mangaItem.save();
     notifyListeners(); // TODO: needed ?
   }
 
 
-  List<Manga> getFilteredMangaList({String query}) {
+  List<Manga> getFilteredMangaList({String? query}) {
     // Get saved mangas from db
     List<Manga> dbMangas = boxManga.values.toList();
     dbMangas.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
@@ -70,13 +70,13 @@ class MapiProvider extends ChangeNotifier {
   }
 
 
-  Future<List<Manga>> getMangaList({String query}) async {
-    Settings settings = boxSettings.get('settings');
+  Future<List<Manga>> getMangaList({String? query}) async {
+    Settings settings = boxSettings.get('settings') as Settings;
 
     // If there are manga inside db, and mangaListLastUpdated date exists
     if (boxManga.values.isNotEmpty && settings.mangaListLastUpdated != null) {
       DateTime now = DateTime.now();
-      DateTime timeToRefresh = settings.mangaListLastUpdated.add(new Duration(days: 1));
+      DateTime timeToRefresh = settings.mangaListLastUpdated!.add(new Duration(days: 1));
       // If manga list was refreshed less than 24 hours ago, return the list from db
       if (!now.isAfter(timeToRefresh)) {
         debugPrint('Return list from db');
@@ -93,7 +93,7 @@ class MapiProvider extends ChangeNotifier {
     List<Manga> apiMangaList = await Api.getMangaList();
     // Save every manga to db (create or update)
     apiMangaList.forEach((element) async {
-      Manga existingManga = boxManga.get(element.urlSafeTitle);
+      Manga? existingManga = boxManga.get(element.urlSafeTitle);
       if (existingManga != null){
         existingManga.updateFromManga(element);
         await boxManga.put(existingManga.urlSafeTitle, existingManga);
@@ -116,18 +116,18 @@ class MapiProvider extends ChangeNotifier {
   }
 
 
-  void markAsRead(Manga mangaItem, List<Chapter> chapters, Chapter chapter, { markPrevious: false }) {
+  void markAsRead(Manga mangaItem, List<Chapter> chapters, Chapter chapter, { markPrevious = false }) {
     if (markPrevious == true) {
       int currentChapterIndex = chapters.indexOf(chapter);
       for(int i = currentChapterIndex + 1; i < chapters.length; i++) {
-        if (!mangaItem.readChapters.contains(chapters[i].uid)) {
-          mangaItem.readChapters.add(chapters[i].uid);
+        if (!mangaItem.readChapters!.contains(chapters[i].uid)) {
+          mangaItem.readChapters!.add(chapters[i].uid);
         }
       }
       mangaItem.save();
     } else {
-      if (!mangaItem.readChapters.contains(chapter.uid)) {
-        mangaItem.readChapters.add(chapter.uid);
+      if (!mangaItem.readChapters!.contains(chapter.uid)) {
+        mangaItem.readChapters!.add(chapter.uid);
         mangaItem.save();
       }
     }
@@ -135,18 +135,18 @@ class MapiProvider extends ChangeNotifier {
   }
 
 
-  void markAsNotRead(Manga mangaItem, List<Chapter> chapters, Chapter chapter, { markPrevious: false }) {
+  void markAsNotRead(Manga mangaItem, List<Chapter> chapters, Chapter chapter, { markPrevious = false }) {
     if (markPrevious == true) {
       int currentChapterIndex = chapters.indexOf(chapter);
       for(int i = currentChapterIndex + 1; i < chapters.length; i++) {
-        if (mangaItem.readChapters.contains(chapters[i].uid)) {
-          mangaItem.readChapters.remove(chapters[i].uid);
+        if (mangaItem.readChapters!.contains(chapters[i].uid)) {
+          mangaItem.readChapters!.remove(chapters[i].uid);
         }
       }
       mangaItem.save();
     } else {
-      if (mangaItem.readChapters.contains(chapter.uid)) {
-        mangaItem.readChapters.remove(chapter.uid);
+      if (mangaItem.readChapters!.contains(chapter.uid)) {
+        mangaItem.readChapters!.remove(chapter.uid);
         mangaItem.save();
       }
     }
